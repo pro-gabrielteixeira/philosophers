@@ -7,7 +7,7 @@ CC = cc -pthread
 FLAGS = #-Wall -Wextra -Werror -g -fsanitize=address
 #valgrind --leak-check=full --show-leak-kinds=all
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
-SRC = src/philosophers.c
+SRC = src/philosophers.c src/utils.c src/routine.c src/threads.c
 
 all: obj $(NAME)
 
