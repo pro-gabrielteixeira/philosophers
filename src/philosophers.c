@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 22:07:57 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/17 20:42:14 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/22 22:54:41 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	main(int argc, char **argv)
 	{
 		db()->philo = ft_atoi(argv[1]);
 		db()->die = ft_atoi(argv[2]);
-		db()->eat = (ft_atoi(argv[3]) * 1000);
-		db()->sleep = (ft_atoi(argv[4]) * 1000);
+		db()->eat = ft_atoi(argv[3]);
+		db()->sleep = ft_atoi(argv[4]);
 		if (argc == 6)
 			db()->x_eat = ft_atoi(argv[5]);
 		else

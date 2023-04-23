@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 22:44:25 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/17 23:25:02 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/23 02:16:12 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 typedef struct s_data
 {
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	m_flag;
 	pthread_t		*t_philo;
 	struct timeval	tv;
 	long long		time_start;
@@ -35,7 +36,7 @@ typedef struct s_data
 	int				eat;
 	int				sleep;
 	int				x_eat;
-	int				turn;
+	int				*count;
 	int				flag;
 }   t_data;
 
@@ -43,14 +44,15 @@ typedef struct s_data
 int 	ft_atoi(char *str);
 
 //routine.c
-int	check_death(int id);
+int	check_death(int id, int fork_odd, int fork_even);
 void	time_stamp(int id);
 long long	time_manager(void);
-void	action(int id, int fork_n);
+void	action_sleep(int id, int fork_odd, int fork_even);
+void	action_eat(int id, int fork_odd, int fork_even);
 void	*routine(void *arg);
 
 //threads.c
-void	finish_threads(void);
+// void	finish_threads(void);
 void	start_threads(void);
 
 //philosophers.c
