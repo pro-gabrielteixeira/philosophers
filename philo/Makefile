@@ -4,7 +4,7 @@ RESET = \033[0m
 
 NAME = philo
 CC = cc -pthread
-FLAGS = #-Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 #valgrind --leak-check=full --show-leak-kinds=all
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 SRC = src/philosophers.c src/utils.c src/routine.c src/threads.c

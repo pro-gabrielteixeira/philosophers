@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 21:38:17 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/23 02:42:33 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:45:06 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_death(int id, int fork_odd, int fork_even)
 	i = (int) time_manager() - (db()->philo_time[id - 1]);
 	if (i >= db()->die)
 	{
-		printf("%lld ms %i \033[31mdied\033[0m\n", time_manager(), id);
+		printf("%lld %i \033[31mdied\033[0m\n", time_manager(), id);
 		db()->flag = 1;
 		pthread_mutex_unlock(&db()->m_flag);
 		pthread_mutex_unlock(&db()->forks[fork_even]);
@@ -53,17 +53,17 @@ long long	time_manager(void)
 
 void	action_sleep(int id, int fork_odd, int fork_even)
 {
-	printf("%lld ms %i\033[33m is sleeping\033[0m\n", time_manager(), id);
+	printf("%lld %i\033[33m is sleeping\033[0m\n", time_manager(), id);
 	pthread_mutex_unlock(&db()->forks[fork_odd]);
 	pthread_mutex_unlock(&db()->forks[fork_even]);
-	if	(db()->count[id - 1] != 1)
+	if	(db()->count[id - 1] != 0)
 		db()->count[id - 1]--;
 	else
 		return;
 	while (((int) time_manager() - (db()->philo_time[id - 1])) < (db()->eat + db()->sleep))
 		if (check_death(id, fork_odd, fork_even))
 			return;
-	printf("%lld ms %i\033[33m is thinking\033[0m\n", time_manager(), id);
+	printf("%lld %i\033[33m is thinking\033[0m\n", time_manager(), id);
 	action_eat(id, fork_odd, fork_even);
 }
 
@@ -72,10 +72,16 @@ void	action_eat(int id, int fork_odd, int fork_even)
 	pthread_mutex_lock(&db()->forks[fork_even]);
 	if (check_death(id, fork_odd, fork_even))
 		return;
-	printf("%lld ms %i\033[32m has taken a fork\033[0m\n", time_manager(), id);
+	printf("%lld %i\033[32m has taken a fork\033[0m\n", time_manager(), id);
+	if (db()->philo == 1)
+	{
+		usleep(db()->die * 1000);
+		printf("%lld %i \033[31mdied\033[0m\n", time_manager(), id);
+		return ;
+	}
 	pthread_mutex_lock(&db()->forks[fork_odd]);
-	printf("%lld ms %i\033[32m is eating\033[0m\n", time_manager(), id);
 	time_stamp(id);
+	printf("%lld %i\033[32m is eating\033[0m\n", time_manager(), id);
 	while (((int) time_manager() - (db()->philo_time[id - 1])) < db()->eat)
 		if (check_death(id, fork_odd, fork_even))
 			return;
@@ -106,5 +112,8 @@ void	*routine(void *arg)
 		fork_even = id - 1;
 	}
 	time_stamp(id);
+	if ((id % 2) == 0)
+		usleep(1);
 	action_eat(id, fork_odd, fork_even);
+	return (NULL);
 }
