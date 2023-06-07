@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 21:38:17 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/23 16:45:06 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:54:12 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	check_death(int id, int fork_odd, int fork_even)
 {
 	int	i;
-
+	
+	usleep(5);
 	pthread_mutex_lock(&db()->m_flag);
 	if (db()->flag == 1)
 	{
@@ -38,28 +39,11 @@ int	check_death(int id, int fork_odd, int fork_even)
 	return (0);
 }
 
-void	time_stamp(int id)
-{
-	db()->philo_time[id - 1] = (int) time_manager();
-}
-
-long long	time_manager(void)
-{
-	long long	time_now;
-	gettimeofday(&(db()->tv), NULL);
-	time_now = (long long)(((db()->tv).tv_sec * 1000000 + (db()->tv).tv_usec) / 1000) - db()->time_start;
-	return (time_now);
-}
-
 void	action_sleep(int id, int fork_odd, int fork_even)
 {
 	printf("%lld %i\033[33m is sleeping\033[0m\n", time_manager(), id);
 	pthread_mutex_unlock(&db()->forks[fork_odd]);
 	pthread_mutex_unlock(&db()->forks[fork_even]);
-	if	(db()->count[id - 1] != 0)
-		db()->count[id - 1]--;
-	else
-		return;
 	while (((int) time_manager() - (db()->philo_time[id - 1])) < (db()->eat + db()->sleep))
 		if (check_death(id, fork_odd, fork_even))
 			return;
@@ -69,6 +53,10 @@ void	action_sleep(int id, int fork_odd, int fork_even)
 
 void	action_eat(int id, int fork_odd, int fork_even)
 {
+	if	(db()->count[id - 1] != 0)
+		db()->count[id - 1]--;
+	else
+		return;
 	pthread_mutex_lock(&db()->forks[fork_even]);
 	if (check_death(id, fork_odd, fork_even))
 		return;
@@ -113,7 +101,7 @@ void	*routine(void *arg)
 	}
 	time_stamp(id);
 	if ((id % 2) == 0)
-		usleep(1);
+		usleep(5);
 	action_eat(id, fork_odd, fork_even);
 	return (NULL);
 }

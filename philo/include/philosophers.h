@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 22:44:25 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/23 02:16:12 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:09:10 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct s_data
 	int				flag;
 }   t_data;
 
-//utils.c
+// utils.c
 int 	ft_atoi(char *str);
 
-//routine.c
+// routine.c
 int	check_death(int id, int fork_odd, int fork_even);
 void	time_stamp(int id);
 long long	time_manager(void);
@@ -51,11 +51,11 @@ void	action_sleep(int id, int fork_odd, int fork_even);
 void	action_eat(int id, int fork_odd, int fork_even);
 void	*routine(void *arg);
 
-//threads.c
+// threads.c
 // void	finish_threads(void);
 void	start_threads(void);
 
-//philosophers.c
+// philosophers.c
 t_data	*db(void);
 int		main(int argc, char **argv);
 

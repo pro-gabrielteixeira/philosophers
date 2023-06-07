@@ -6,11 +6,24 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 16:27:02 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/17 19:07:44 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:29:12 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
+
+void	time_stamp(int id)
+{
+	db()->philo_time[id - 1] = (int) time_manager();
+}
+
+long long	time_manager(void)
+{
+	long long	time_now;
+	gettimeofday(&(db()->tv), NULL);
+	time_now = (long long)(((db()->tv).tv_sec * 1000000 + (db()->tv).tv_usec) / 1000) - db()->time_start;
+	return (time_now);
+}
 
 int ft_atoi(char *str)
 {
