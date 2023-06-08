@@ -6,15 +6,15 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 22:07:57 by gateixei          #+#    #+#             */
-/*   Updated: 2023/04/23 14:25:48 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:30:03 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosophers.h"
+#include "../include/philo.h"
 
-t_data *db(void)
+t_data	*db(void)
 {
-	static t_data data;
+	static t_data	data;
 
 	return (&data);
 }
@@ -26,7 +26,6 @@ int	valid_inputs(void)
 		return (0);
 	return (1);
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -43,7 +42,8 @@ int	main(int argc, char **argv)
 		if (valid_inputs())
 		{
 			gettimeofday(&(db()->tv), NULL);
-			db()->time_start = (long long)((db()->tv).tv_sec * 1000000 + (db()->tv).tv_usec) / 1000;
+			db()->time_start = (long long)((db()->tv).tv_sec * 1000000 \
+			+ (db()->tv).tv_usec) / 1000;
 			start_threads();
 		}
 	}

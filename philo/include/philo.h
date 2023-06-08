@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 22:44:25 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/05 19:09:10 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:32:34 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,27 @@ typedef struct s_data
 	int				x_eat;
 	int				*count;
 	int				flag;
-}   t_data;
+}	t_data;
 
 // utils.c
-int 	ft_atoi(char *str);
+void		do_malloc(void);
+void		time_stamp(int id);
+long long	time_manager(void);
+int			ft_atoi(char *str);
 
 // routine.c
-int	check_death(int id, int fork_odd, int fork_even);
-void	time_stamp(int id);
-long long	time_manager(void);
-void	action_sleep(int id, int fork_odd, int fork_even);
-void	action_eat(int id, int fork_odd, int fork_even);
-void	*routine(void *arg);
+int			check_death(int id, int fork_odd, int fork_even);
+void		action_sleep(int id, int fork_odd, int fork_even);
+void		action_eat(int id, int fork_odd, int fork_even);
+void		*routine(void *arg);
 
 // threads.c
-// void	finish_threads(void);
-void	start_threads(void);
+void		finish_threads(void);
+void		start_threads(void);
 
 // philosophers.c
-t_data	*db(void);
-int		main(int argc, char **argv);
+t_data		*db(void);
+int			valid_inputs(void);
+int			main(int argc, char **argv);
 
 #endif
